@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "serve": "live-server ./public",
     "dev-server": "webpack-dev-server",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "test": "jest --config=jest.config.json"
+    "test": "jest --config=jest.config.json",
+    "heroku-postbuild": "npm run build:prod"
   },
   "author": "DangenMaster",
   "license": "ISC",
@@ -24,6 +26,7 @@
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.5",
+    "express": "^4.16.4",
     "jest": "^24.1.0",
     "live-server": "^1.2.1",
     "mini-css-extract-plugin": "^0.5.0",
