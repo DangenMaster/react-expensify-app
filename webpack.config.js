@@ -7,7 +7,7 @@ module.exports = (env) => {
     mode: isProduction ? 'production' : 'development',
     entry: './src/app.js',
     output: {
-      path: path.resolve(__dirname, 'public'),
+      path: path.resolve(__dirname, 'public', 'dist'),
       filename: 'bundle.js'
     },
     module: {
@@ -44,7 +44,8 @@ module.exports = (env) => {
     devServer: {
       open: true,
       contentBase: path.resolve(__dirname, 'public'),
-      historyApiFallback: true
+      historyApiFallback: true,
+      publicPath: '/dist/'
     }
   };
 };
