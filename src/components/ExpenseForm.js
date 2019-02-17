@@ -11,7 +11,7 @@ class ExpenseForm extends React.Component {
       id: props.expense ? props.expense.id : uuid(),
       description: props.expense ? props.expense.description : '',
       note: props.expense ? props.expense.note : '',
-      amount: props.expense ? (props.expense.amount / 100).toString() : '',
+      amount: props.expense ? props.expense.amount.toString() : '',
       createdAt: props.expense ? moment(props.expense.createdAt) : moment() ,
       calendarFocused: false,
       error: ''
@@ -51,7 +51,7 @@ class ExpenseForm extends React.Component {
         id,
         description, 
         note, 
-        amount: parseFloat(amount, 10) * 100, 
+        amount: parseFloat(amount, 10), 
         createdAt: createdAt.valueOf() 
       });
     }
