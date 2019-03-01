@@ -46,3 +46,11 @@ test('should edit expense by id', () => {
     }
   }));
 });
+
+test('should set expenses', () => {
+  const state = expensesReducer([], {
+    type: 'SET_EXPENSES',
+    payload: expenses
+  });
+  expect(state).toEqual(expenses);
+});
