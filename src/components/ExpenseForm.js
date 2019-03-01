@@ -1,5 +1,4 @@
 import React from "react";
-import uuid from "uuid";
 import moment from "moment";
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
@@ -8,7 +7,7 @@ class ExpenseForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.expense ? props.expense.id : uuid(),
+      id: props.expense ? props.expense.id : '',
       description: props.expense ? props.expense.description : '',
       note: props.expense ? props.expense.note : '',
       amount: props.expense ? props.expense.amount.toString() : '',

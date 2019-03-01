@@ -8,7 +8,7 @@
     "dev-server": "webpack-dev-server",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "test": "jest --config=jest.config.json",
+    "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "heroku-postbuild": "npm run build:prod"
   },
   "author": "DangenMaster",
@@ -23,6 +23,7 @@
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
     "express": "^4.16.4",
+    "firebase": "^5.8.3",
     "mini-css-extract-plugin": "^0.5.0",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
@@ -36,17 +37,21 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "uuid": "^3.3.2",
     "webpack": "^4.29.0"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
+    "dotenv": "^6.2.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.5",
     "jest": "^24.1.0",
     "react-test-renderer": "^16.8.1",
+    "redux-mock-store": "^1.5.3",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
   }
