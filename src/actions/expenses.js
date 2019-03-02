@@ -38,11 +38,19 @@ export const startRemoveExpense = (payload) => {
   };
 };
 
-export const editExpense = (id, payload = {}) => ({
+export const editExpense = (id, payload) => ({
   type: 'EDIT_EXPENSE',
   id,
   payload
 });
+
+export const startEditExpense = (id, payload = {}) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).update(payload).then(() => {
+      dispatch(editExpense(id, payload));
+    });
+  };
+};
 
 export const setExpenses = (payload) => ({
   type: 'SET_EXPENSES',
