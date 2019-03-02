@@ -5,6 +5,7 @@ import {
   startAddExpense, 
   editExpense, 
   removeExpense,
+  startRemoveExpense,
   setExpenses,
   startSetExpenses
 } from "./../../actions/expenses";
@@ -33,6 +34,32 @@ test('should setup add expense action object', () => {
   });
 });
 
+test('should add expense to database and store', (done) => {
+  const store = mockStore({});
+  const expenseData = {
+    description: 'Internet',
+    note: 'Internet bill',
+    amount: 820,
+    createdAt: 1000
+  };
+  store.dispatch(startAddExpense(expenseData))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'ADD_EXPENSE',
+        payload: {
+          id: expect.any(String),
+          ...expenseData
+        }
+      });
+      return database.ref(`expenses/${actions[0].payload.id}`).once('value');
+    })
+    .then((snapshot) => {
+      expect(snapshot.val()).toEqual(expenseData);
+      done();
+    });
+});
+
 test('should setup edit expense action object', () => {
   const action = editExpense('123qwe', { description: 'Internet' });
   expect(action).toEqual({
@@ -54,33 +81,23 @@ test('should setup remove expense action object', () => {
   });
 });
 
-test('should add expense to database and store', (done) => {
+test('should remove expense from database and store', (done) => {
   const store = mockStore({});
-  const expenseData = {
-    description: 'Internet',
-    note: 'Internet bill',
-    amount: 820,
-    createdAt: 1000 
-  };
-  store.dispatch(startAddExpense(expenseData))
-    .then(() => {
-      const actions = store.getActions();
-      expect(actions[0]).toEqual({
-        type: 'ADD_EXPENSE',
-        payload: {
-          id: expect.any(String),
-          ...expenseData
-        }
-      });
-      return database.ref(`expenses/${actions[0].payload.id}`).once('value');
-    })
-    .then((snapshot) => {
-      expect(snapshot.val()).toEqual(expenseData);
-      done();
+  const { id } = expenses[0];
+  store.dispatch(startRemoveExpense({ id })).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'REMOVE_EXPENSE',
+      payload: { id }
     });
+    return database.ref(`expenses/${id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val()).toBeFalsy();
+    done();
+  });
 });
 
-test('should set expenses action object', () => {
+test('should set fetch expenses action object', () => {
   const action = setExpenses(expenses);
   expect(action).toEqual({
     type: 'SET_EXPENSES',
