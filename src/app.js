@@ -30,7 +30,6 @@ ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('user', user);
     store.dispatch(googleLogin({ uid: user.uid }));
     store.dispatch(startSetExpenses()).then(() => {
       renderApp();
