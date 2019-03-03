@@ -47,7 +47,6 @@ export const editExpense = (id, payload) => ({
 });
 
 export const startEditExpense = (expenseId, payload = {}) => {
-  console.log('payload', payload);
   const { id, ...updatedData } = payload;
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
