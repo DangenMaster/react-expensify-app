@@ -46,11 +46,13 @@ export const editExpense = (id, payload) => ({
   payload
 });
 
-export const startEditExpense = (id, payload = {}) => {
+export const startEditExpense = (expenseId, payload = {}) => {
+  console.log('payload', payload);
+  const { id, ...updatedData } = payload;
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
-    return database.ref(`users/${uid}/expenses/${id}`).update(payload).then(() => {
-      dispatch(editExpense(id, payload));
+    return database.ref(`users/${uid}/expenses/${expenseId}`).update(updatedData).then(() => {
+      dispatch(editExpense(expenseId, updatedData));
     });
   };
 };
